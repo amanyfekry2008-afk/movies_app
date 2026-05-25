@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/features/Splash_Screen/Splash_screen.dart';
 import 'package:movies_app/features/layout/layout_screen.dart';
 
 void main() {
@@ -10,8 +9,8 @@ class MoviesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Splash_screen(),
-    );
+
+        debugShowCheckedModeBanner: false,
+        home: LayoutScreen());
   }
 }
