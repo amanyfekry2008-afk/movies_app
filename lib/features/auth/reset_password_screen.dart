@@ -3,6 +3,7 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/app_images.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
+import 'package:movies_app/features/layout/layout_screen.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({super.key});

@@ -1,5 +1,6 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/features/layout/layout_screen.dart';
 import '../../../core/utils/app_images.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
@@ -72,7 +73,14 @@ class LoginScreen extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                CustomButton(text: "Login", onPressed: () {}),
+                CustomButton(text: "Login", onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LayoutScreen(),
+                    ),
+                  );
+                }),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
