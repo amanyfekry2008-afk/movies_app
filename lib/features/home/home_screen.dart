@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
-import 'package:movies_app/core/utils/app_images.dart';
+import 'package:movies_app/features/browse/Movie_List.dart';
 import 'package:movies_app/features/home/widgets/banner_section.dart';
 import 'package:movies_app/features/home/widgets/movies_category_section.dart';
+import 'package:movies_app/features/movie_details/movie_model.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final void Function(String genre) onSeeMore;
+  const HomeScreen({super.key, required this.onSeeMore});
 
   @override
   Widget build(BuildContext context) {
-    final List<String> movies = [
-      AppImages.movie1,
-      AppImages.movie2,
-      AppImages.movie3,
-      AppImages.movie1,
-      AppImages.movie2,
-      AppImages.movie3,
-    ];
+    final List<MovieModel> movies = genreMovies;
 
     return Scaffold(
       backgroundColor: AppColors.black,
@@ -25,9 +20,17 @@ class HomeScreen extends StatelessWidget {
           children: [
             BannerSection(),
             const SizedBox(height: 32),
-            MoviesCategorySection(title: 'Action', movies: movies),
+            MoviesCategorySection(
+              title: 'Action',
+              movies: movies,
+              onSeeMore: onSeeMore,
+            ),
             const SizedBox(height: 32),
-            MoviesCategorySection(title: 'Drama', movies: movies),
+            MoviesCategorySection(
+              title: 'Drama',
+              movies: movies,
+              onSeeMore: onSeeMore,
+            ),
           ],
         ),
       ),

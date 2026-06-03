@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_card.dart';
+import 'package:movies_app/features/movie_details/movie_model.dart';
 
 class CustomPageView extends StatefulWidget {
-  final List<String> movies;
+  final List<MovieModel> movies;
   final Function(int) onPageChanged;
   const CustomPageView({
     super.key,
@@ -55,7 +56,7 @@ class _CustomPageViewState extends State<CustomPageView> {
           child: Transform.scale(
             scale: isSelected ? 0.82 : 0.72,
             child: MovieCard(
-              image: widget.movies[index],
+              movie: widget.movies[index],
             ),
           ),
         );

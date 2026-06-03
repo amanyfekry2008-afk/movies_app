@@ -14,15 +14,27 @@ class LayoutScreen extends StatefulWidget {
 }
 
 class _LayoutScreenState extends State<LayoutScreen> {
-   final List<Widget> screens = [
-    const HomeScreen(),
-    const SearchScreen(),
-    const BrowseScreen(),
-    const ProfileScreen(),
-  ];
+  
   int currentIndex = 0;
+  String? selectedGenreForBrowse;
+
+  void openBrowseWithGenre(String genre) {
+    setState(() {
+      selectedGenreForBrowse = genre;
+      currentIndex = 2; 
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
+     final List<Widget> screens = [
+    HomeScreen(
+      onSeeMore: openBrowseWithGenre,
+    ),
+    const SearchScreen(),
+     BrowseScreen(genre: selectedGenreForBrowse,),
+    const ProfileScreen(),
+  ];
     return Scaffold(
       extendBody: true,
       backgroundColor: AppColors.black ,

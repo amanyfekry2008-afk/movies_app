@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_images.dart';
 import 'package:movies_app/core/widgets/responsive_image.dart';
+import 'package:movies_app/features/browse/Movie_List.dart';
+import 'package:movies_app/features/movie_details/movie_model.dart';
 import '../../../core/utils/app_colors.dart';
 import 'custom_page_view.dart';
 
@@ -13,20 +15,7 @@ class BannerSection extends StatefulWidget {
 
 class _BannerSectionState extends State<BannerSection> {
   int currentIndex = 0;
-  final List<String> movies = [
-    AppImages.movie1,
-    AppImages.movie2,
-    AppImages.movie3,
-    AppImages.movie1,
-    AppImages.movie2,
-    AppImages.movie3,
-    AppImages.movie1,
-    AppImages.movie2,
-    AppImages.movie3,
-    AppImages.movie1,
-    AppImages.movie2,
-    AppImages.movie3,
-  ];
+  final List<MovieModel> movies = genreMovies;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +24,11 @@ class _BannerSectionState extends State<BannerSection> {
       child: Stack(
         children: [
           Positioned.fill(
-            child: Image.asset(movies[currentIndex], fit: BoxFit.cover,filterQuality: FilterQuality.high,),
+            child: Image.asset(
+              movies[currentIndex].posterImage,
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.high,
+            ),
           ),
           Positioned.fill(
             child: Container(
@@ -78,7 +71,7 @@ class _BannerSectionState extends State<BannerSection> {
               Center(
                 child: ResponsiveImage(
                   width: 354,
-                 height: 110,
+                  height: 110,
                   image: AppImages.watchNow,
                 ),
               ),

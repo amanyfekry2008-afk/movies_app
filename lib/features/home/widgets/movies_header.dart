@@ -4,10 +4,12 @@ import 'package:movies_app/core/utils/app_text.dart';
 
 class MoviesHeader extends StatelessWidget {
   final String title;
+  final void Function(String genre) onSeeMore;
 
   const MoviesHeader({
     super.key,
     required this.title,
+    required this.onSeeMore,
   });
 
   @override
@@ -21,9 +23,14 @@ class MoviesHeader extends StatelessWidget {
             style: AppText.regular.copyWith(color: AppColors.white),
           ),
          const  Spacer(),
-          Text(
-            'See More',
-            style:AppText.regular.copyWith(color: AppColors.yellow),
+          InkWell(
+            onTap: () {
+              onSeeMore(title);
+            },
+            child: Text(
+              'See More',
+              style:AppText.regular.copyWith(color: AppColors.yellow),
+            ),
           ),
           SizedBox(width: 3),
           Icon(

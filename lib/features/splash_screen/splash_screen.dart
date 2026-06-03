@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_icons.dart';
 import 'package:movies_app/core/utils/app_text.dart';
@@ -22,9 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => const OnboardingScreen(),
-        ),
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
       );
     });
   }
@@ -37,39 +34,32 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppColors.black,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 20,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(),
 
-              SvgPicture.asset(
-                AppIcons.filmIcon,
-                height: height * 0.16,
-              ),
+                Image.asset(AppIcons.filmIcon, height: height * 0.60),
 
-              Column(
-                children: [
-                  SvgPicture.asset(
-                    AppIcons.routeIcon,
-                    height: height * 0.045,
-                  ),
+                Column(
+                  children: [
+                    Image.asset(AppIcons.routeIcon, height: height * 0.10),
 
-                  const SizedBox(height: 4),
+                    const SizedBox(height: 4),
 
-                  Text(
-                    'Supervised by Mohamed Nabil',
-                    style: AppText.regular.copyWith(
-                      fontSize: 7,
-                      color: AppColors.white,
+                    Text(
+                      'Supervised by Mohamed Nabil',
+                      style: AppText.regular.copyWith(
+                        fontSize: 18,
+                        color: AppColors.white,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
