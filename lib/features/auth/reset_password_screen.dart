@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/app_images.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_text_field.dart';
-import 'package:movies_app/features/layout/layout_screen.dart';
+import 'package:movies_app/core/utils/app_colors.dart';
+import 'package:movies_app/core/utils/app_images.dart';
+import 'package:movies_app/core/utils/app_text.dart';
+import 'package:movies_app/core/widgets/custom_button.dart';
+import 'package:movies_app/core/widgets/custom_text_field.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   const ResetPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: AppColors.black,
       body: SafeArea(
@@ -31,13 +33,12 @@ class ResetPasswordScreen extends StatelessWidget {
                       ),
                     ),
 
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         "Forget Password",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: AppText.regular.copyWith(
                           color: AppColors.yellow,
-                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -47,26 +48,28 @@ class ResetPasswordScreen extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
 
                 Center(
                   child: Image.asset(
                     AppImages.forgotPassword,
-                    width: 200,
-                    height: 200,
+                    width: width * 0.5,
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 32),
 
                 const CustomTextField(
                   hintText: "Email",
                   prefixIcon: Icons.email_outlined,
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 24),
 
-                CustomButton(text: "Verify Email", onPressed: () {}),
+                CustomButton(
+                  text: "Verify Email",
+                  onPressed: () {},
+                ),
               ],
             ),
           ),

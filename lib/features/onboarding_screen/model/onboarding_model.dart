@@ -4,17 +4,16 @@ class OnboardingModel {
   final String description;
   final bool isOneButton;
   final bool isFirstPage;
-  final String button1text;
-  final String button2text;
-
+  final String primaryButtonText;
+  final String secondaryButtonText;
 
   OnboardingModel({
-    required this.isFirstPage,
     required this.image,
     required this.title,
     required this.description,
     required this.isOneButton,
-    required this.button1text,
-    required this.button2text,
+    required this.isFirstPage,
+    required this.primaryButtonText,
+    required this.secondaryButtonText,
   });
 }

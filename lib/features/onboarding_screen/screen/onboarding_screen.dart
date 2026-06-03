@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_images.dart';
-import 'package:movies_app/features/OnBoarding_Screen/Widgets/bottom_sheet.dart';
-import 'package:movies_app/features/OnBoarding_Screen/model/OnBoarding_model.dart';
 import 'package:movies_app/features/auth/login_screen.dart';
-
+import '../model/onboarding_model.dart';
+import '../widgets/onboarding_sheet.dart';
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() =>
-      _OnboardingScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState
-    extends State<OnboardingScreen> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController pageController = PageController();
 
   final List<OnboardingModel> onboardingList = [
     OnboardingModel(
       isFirstPage: true,
-      button1text: 'Explore Now',
-      button2text: '',
+      primaryButtonText: 'Explore Now',
+      secondaryButtonText: '',
       isOneButton: true,
       image: AppImages.findYourFavouriteMovie,
       title: 'Find Your Next Favorite Movie Here',
@@ -31,8 +28,8 @@ class _OnboardingScreenState
 
     OnboardingModel(
       isFirstPage: false,
-      button1text: 'Next',
-      button2text: '',
+      primaryButtonText: 'Next',
+      secondaryButtonText: '',
       isOneButton: true,
       image: AppImages.discoverMore,
       title: 'Discover Movies',
@@ -42,8 +39,8 @@ class _OnboardingScreenState
 
     OnboardingModel(
       isFirstPage: false,
-      button1text: 'Next',
-      button2text: 'Back',
+      primaryButtonText: 'Next',
+      secondaryButtonText: 'Back',
       isOneButton: false,
       image: AppImages.exploreAllGenres,
       title: 'Explore All Genres',
@@ -53,8 +50,8 @@ class _OnboardingScreenState
 
     OnboardingModel(
       isFirstPage: false,
-      button1text: 'Next',
-      button2text: 'Back',
+      primaryButtonText: 'Next',
+      secondaryButtonText: 'Back',
       isOneButton: false,
       image: AppImages.createWatchLists,
       title: 'Create Watch Lists',
@@ -64,8 +61,8 @@ class _OnboardingScreenState
 
     OnboardingModel(
       isFirstPage: false,
-      button1text: 'Next',
-      button2text: 'Back',
+      primaryButtonText: 'Next',
+      secondaryButtonText: 'Back',
       isOneButton: false,
       image: AppImages.rateReviewLearn,
       title: 'Rate, Review, and Learn',
@@ -75,8 +72,8 @@ class _OnboardingScreenState
 
     OnboardingModel(
       isFirstPage: false,
-      button1text: 'Finish',
-      button2text: 'Back',
+      primaryButtonText: 'Finish',
+      secondaryButtonText: 'Back',
       isOneButton: false,
       image: AppImages.startWatchingNow,
       title: 'Start Watching Now',
@@ -94,17 +91,14 @@ class _OnboardingScreenState
     if (index == onboardingList.length - 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
-        ),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
-
       return;
     }
 
     pageController.animateToPage(
       index + 1,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
     );
   }
@@ -114,7 +108,7 @@ class _OnboardingScreenState
 
     pageController.animateToPage(
       index - 1,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.ease,
     );
   }
@@ -134,9 +128,12 @@ class _OnboardingScreenState
             alignment: Alignment.bottomCenter,
             children: [
               Positioned.fill(
-                child: Image.asset(
-                  onboarding.image,
-                  fit: BoxFit.cover,
+                child: SafeArea(
+                  bottom: false,
+                  child: Image.asset(
+                    onboarding.image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
 
@@ -149,8 +146,8 @@ class _OnboardingScreenState
                   isOneButton: onboarding.isOneButton,
                   label: onboarding.title,
                   description: onboarding.description,
-                  text1: onboarding.button1text,
-                  text2: onboarding.button2text,
+                  text1: onboarding.primaryButtonText,
+                  text2: onboarding.secondaryButtonText,
                   onPressed1: () => nextPage(index),
                   onPressed2: () => previousPage(index),
                 ),

@@ -1,12 +1,15 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movies_app/core/utils/app_colors.dart';
+import 'package:movies_app/core/utils/app_icons.dart';
+import 'package:movies_app/core/utils/app_images.dart';
+import 'package:movies_app/core/utils/app_text.dart';
+import 'package:movies_app/core/widgets/custom_button.dart';
+import 'package:movies_app/core/widgets/custom_text_field.dart';
+import 'package:movies_app/features/auth/register_screen.dart';
+import 'package:movies_app/features/auth/reset_password_screen.dart';
 import 'package:movies_app/features/layout/layout_screen.dart';
-import '../../../core/utils/app_images.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_text_field.dart';
-import '../../core/utils/app_colors.dart';
-import 'register_screen.dart';
-import 'reset_password_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -22,7 +25,7 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
 
                 Center(
                   child: Image.asset(
@@ -32,14 +35,14 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 32),
 
                 const CustomTextField(
                   hintText: "Email",
                   prefixIcon: Icons.email_outlined,
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
 
                 const CustomTextField(
                   hintText: "Password",
@@ -51,7 +54,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
 
                 Align(
                   alignment: Alignment.centerRight,
@@ -60,66 +63,81 @@ class LoginScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ResetPasswordScreen(),
+                          builder: (context) =>
+                          const ResetPasswordScreen(),
                         ),
                       );
                     },
                     child: Text(
                       "Forgot Password?",
-                      style: TextStyle(color: AppColors.yellow),
+                      style: AppText.regular.copyWith(
+                        color: AppColors.yellow,
+                      ),
                     ),
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
 
-                CustomButton(text: "Login", onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LayoutScreen(),
-                    ),
-                  );
-                }),
+                CustomButton(
+                  text: "Login",
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                        const LayoutScreen(),
+                      ),
+                    );
+                  },
+                ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: TextStyle(
+                      style: AppText.regular.copyWith(
                         color: AppColors.white.withValues(alpha: 0.7),
                       ),
                     ),
+
                     TextButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const RegisterScreen(),
+                            builder: (context) =>
+                            const RegisterScreen(),
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         "Create One",
-                        style: TextStyle(color: AppColors.yellow),
+                        style: AppText.regular.copyWith(
+                          color: AppColors.yellow,
+                        ),
                       ),
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(width: 60, height: 1, color: AppColors.yellow),
+                    Container(
+                      width: 60,
+                      height: 1,
+                      color: AppColors.yellow,
+                    ),
 
                     const SizedBox(width: 10),
 
-                    const Text(
+                    Text(
                       "OR",
-                      style: TextStyle(
+                      style: AppText.regular.copyWith(
                         color: AppColors.yellow,
                         fontWeight: FontWeight.w500,
                       ),
@@ -127,52 +145,51 @@ class LoginScreen extends StatelessWidget {
 
                     const SizedBox(width: 10),
 
-                    Container(width: 60, height: 1, color: AppColors.yellow),
+                    Container(
+                      width: 60,
+                      height: 1,
+                      color: AppColors.yellow,
+                    ),
                   ],
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 24),
 
-                SizedBox(
-                  width: double.infinity,
-                  height: 55,
-
-                  child: ElevatedButton(
-                    onPressed: () {},
-
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.yellow,
-
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(
+                      double.infinity,
+                      55,
+                    ),
+                    backgroundColor: AppColors.yellow,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        AppIcons.googleIcon,
+                        height: 24,
                       ),
-                    ),
 
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(
-                          Icons.g_mobiledata,
+                      const SizedBox(width: 12),
+
+                      Text(
+                        "Login With Google",
+                        style: AppText.regular.copyWith(
                           color: AppColors.black,
-                          size: 35,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
                         ),
-
-                        SizedBox(width: 5),
-
-                        Text(
-                          "Login With Google",
-                          style: TextStyle(
-                            color: AppColors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 32),
 
                 Center(
                   child: Container(

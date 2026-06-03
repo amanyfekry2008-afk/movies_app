@@ -1,16 +1,18 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:flutter/material.dart';
-import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/app_images.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_text_field.dart';
-import 'login_screen.dart';
+import 'package:movies_app/core/utils/app_colors.dart';
+import 'package:movies_app/core/utils/app_images.dart';
+import 'package:movies_app/core/utils/app_text.dart';
+import 'package:movies_app/core/widgets/custom_button.dart';
+import 'package:movies_app/core/widgets/custom_text_field.dart';
+import 'package:movies_app/features/auth/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<RegisterScreen> createState() =>
+      _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
@@ -24,6 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: AppColors.black,
       body: SafeArea(
@@ -42,35 +46,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: AppColors.yellow,
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    const Text(
+
+                    const SizedBox(width: 8),
+
+                    Text(
                       "Register",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: AppText.title.copyWith(
                         color: AppColors.yellow,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 24),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 8),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment:
+                    MainAxisAlignment.center,
                     children: List.generate(3, (index) {
-                      final bool isSelected = selectedAvatar == index;
+                      final isSelected =
+                          selectedAvatar == index;
+
                       return GestureDetector(
-                        onTap: () => setState(() => selectedAvatar = index),
+                        onTap: () {
+                          setState(() {
+                            selectedAvatar = index;
+                          });
+                        },
                         child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
+                          duration: const Duration(
+                            milliseconds: 200,
+                          ),
                           curve: Curves.easeOut,
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          width: isSelected ? 95 : 75,
-                          height: isSelected ? 95 : 75,
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                          ),
+                          width: isSelected
+                              ? width * 0.22
+                              : width * 0.18,
+                          height: isSelected
+                              ? width * 0.22
+                              : width * 0.18,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
@@ -81,9 +101,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(3),
+                            padding:
+                            const EdgeInsets.all(3),
                             child: CircleAvatar(
-                              backgroundImage: AssetImage(avatars[index]),
+                              backgroundImage: AssetImage(
+                                avatars[index],
+                              ),
                             ),
                           ),
                         ),
@@ -94,28 +117,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 const SizedBox(height: 8),
 
-                const Center(
-                  child: Text(
-                    "Avatar",
-                    style: TextStyle(color: AppColors.white, fontSize: 13),
+                Text(
+                  "Avatar",
+                  textAlign: TextAlign.center,
+                  style: AppText.regular.copyWith(
+                    fontSize: 14,
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 24),
 
                 const CustomTextField(
                   hintText: "Full Name",
                   prefixIcon: Icons.badge_outlined,
                 ),
 
-                const SizedBox(height: 15),
+                const SizedBox(height: 16),
 
                 const CustomTextField(
                   hintText: "Email",
                   prefixIcon: Icons.email_outlined,
                 ),
 
-                const SizedBox(height: 15),
+                const SizedBox(height: 16),
 
                 const CustomTextField(
                   hintText: "Password",
@@ -127,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 15),
+                const SizedBox(height: 16),
 
                 const CustomTextField(
                   hintText: "Confirm Password",
@@ -139,40 +163,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 15),
+                const SizedBox(height: 16),
 
                 const CustomTextField(
                   hintText: "Phone Number",
                   prefixIcon: Icons.phone_outlined,
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 24),
 
-                CustomButton(text: "Create Account", onPressed: () {}),
+                CustomButton(
+                  text: "Create Account",
+                  onPressed: () {},
+                ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
                   children: [
                     Text(
                       "Already have an account? ",
-                      style: TextStyle(
-                        color: AppColors.white.withValues(alpha: 0.7),
+                      style: AppText.regular.copyWith(
+                        color:
+                        AppColors.white.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                     ),
+
                     TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
+                            builder: (context) =>
+                            const LoginScreen(),
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         "Login",
-                        style: TextStyle(color: AppColors.yellow),
+                        style: AppText.regular.copyWith(
+                          color: AppColors.yellow,
+                        ),
                       ),
                     ),
                   ],
@@ -186,23 +221,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.grey,
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(
+                        30,
+                      ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: CountryFlag.fromCountryCode(
+                          borderRadius:
+                          BorderRadius.circular(50),
+                          child:
+                          CountryFlag.fromCountryCode(
                             'US',
                             height: 22,
                             width: 22,
                           ),
                         ),
+
                         const SizedBox(width: 10),
+
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: CountryFlag.fromCountryCode(
+                          borderRadius:
+                          BorderRadius.circular(50),
+                          child:
+                          CountryFlag.fromCountryCode(
                             'EG',
                             height: 22,
                             width: 22,

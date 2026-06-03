@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_text.dart';
-
 import '../../../core/widgets/custom_button.dart';
+
 class OnboardingSheet extends StatelessWidget {
   final String label;
   final String description;
@@ -32,21 +32,15 @@ class OnboardingSheet extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
-      constraints: BoxConstraints(
-        minHeight: height * 0.32,
-      ),
+      constraints: BoxConstraints(minHeight: height * 0.32),
       decoration: BoxDecoration(
         color: AppColors.black,
         gradient: isFirstPage
             ? const LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          colors: [
-            Colors.black,
-            Colors.black,
-            Colors.transparent,
-          ],
-        )
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                colors: [AppColors.black, Colors.transparent],
+              )
             : null,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(40),
@@ -61,33 +55,20 @@ class OnboardingSheet extends StatelessWidget {
             Text(
               label,
               textAlign: TextAlign.center,
-              style: AppText.title.copyWith(
-                fontSize: isFirstPage ? 30 : 22,
-              ),
+              style: AppText.title.copyWith(fontSize: isFirstPage ? 30 : 22),
             ),
-
             if (description.isNotEmpty) ...[
               const SizedBox(height: 16),
-
               Text(
                 description,
                 textAlign: TextAlign.center,
-                style: AppText.regular.copyWith(
-                  fontSize: 18,
-                ),
+                style: AppText.regular.copyWith(fontSize: 18),
               ),
             ],
-
             const SizedBox(height: 24),
-
-            CustomButton(
-              text: text1,
-              onPressed: onPressed1,
-            ),
-
+            CustomButton(text: text1, onPressed: onPressed1),
             if (!isOneButton) ...[
               const SizedBox(height: 16),
-
               CustomButton(
                 text: text2,
                 onPressed: onPressed2,
