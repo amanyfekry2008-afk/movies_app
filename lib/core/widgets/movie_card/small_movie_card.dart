@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_rating.dart';
-import 'package:movies_app/core/widgets/responsive_image.dart';
 
 class SmallMovieCard extends StatelessWidget {
   final String image;
+  final String rating;
 
-  const SmallMovieCard({super.key, required this.image});
+  const SmallMovieCard({
+    super.key,
+    required this.image,
+    required this.rating,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,30 +18,41 @@ class SmallMovieCard extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius:
+            BorderRadius.circular(20),
             color: AppColors.black,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.3),
+                color: Colors.black.withValues(
+                  alpha: 0.3,
+                ),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
             ],
           ),
+
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius:
+            BorderRadius.circular(16),
             clipBehavior: Clip.antiAlias,
-            child: ResponsiveImage(
+
+            child: Image.network(
+              image,
               width: 146,
               height: 220,
-              image: image,
               fit: BoxFit.cover,
-              useResponsiveWidth: false,
             ),
           ),
         ),
 
-        const Positioned(top: 8, left: 8, child: MovieRating(text: '7.7')),
+        Positioned(
+          top: 8,
+          left: 8,
+          child: MovieRating(
+            text: rating,
+          ),
+        ),
       ],
     );
   }

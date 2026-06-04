@@ -29,6 +29,7 @@ class MoviesGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         return SmallMovieCard(
           image: movies[index],
+          rating: '7.7',
         );
       },
     );

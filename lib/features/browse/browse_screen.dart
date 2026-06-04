@@ -91,6 +91,7 @@ class BrowseScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return MovieCard(
                       image: movies[index],
+                      rating: '7.7',
                     );
                   },
                 ),
