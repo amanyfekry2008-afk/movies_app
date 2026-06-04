@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_images.dart';
 import 'package:movies_app/core/utils/app_text.dart';
 
+import '../../../core/utils/app_constants.dart';
+import '../../auth/cubit/auth_cubit.dart';
+import '../../auth/cubit/auth_state.dart';
 import '../../update_profile/update_profile_screen.dart';
 import 'profile_info_item.dart';
 
@@ -11,6 +15,16 @@ class ProfileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = context.watch<AuthCubit>().user;
+
+    if (context.watch<AuthCubit>().state is AuthLoading &&
+        context.watch<AuthCubit>().user == null) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
 
@@ -26,10 +40,12 @@ class ProfileSection extends StatelessWidget {
           children: [
             Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 36,
                   backgroundColor: Colors.transparent,
-                  backgroundImage: AssetImage(AppImages.avatar),
+                  backgroundImage: AssetImage(
+                    avatars[user!.avatar.clamp(0, avatars.length - 1)],
+                  ),
                 ),
 
                 const SizedBox(width: 20),
@@ -55,7 +71,7 @@ class ProfileSection extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'John Safwat',
+                user.name,
                 style: AppText.regular.copyWith(
                   color: AppColors.white,
                   fontSize: 18,
