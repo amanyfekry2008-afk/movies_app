@@ -176,7 +176,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   ),
                 ],
 
-                SizedBox(height: isPickingAvatar ?150: 250),
+                SizedBox(height: isPickingAvatar ? 150 : 250),
 
                 SizedBox(
                   width: double.infinity,

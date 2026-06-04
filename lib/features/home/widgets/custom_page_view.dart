@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_card.dart';
+import 'package:movies_app/features/movie_details/movie_details_screen.dart';
+import 'package:movies_app/features/movie_details/movie_model.dart';
 
 class CustomPageView extends StatefulWidget {
-  final List<String> movies;
+  final List<MovieModel> movies;
+
   final Function(int) onPageChanged;
+
   const CustomPageView({
     super.key,
     required this.movies,
@@ -16,6 +20,7 @@ class CustomPageView extends StatefulWidget {
 
 class _CustomPageViewState extends State<CustomPageView> {
   int currentIndex = 0;
+
   final PageController controller = PageController(
     viewportFraction: 0.56,
     initialPage: 0,
@@ -31,10 +36,15 @@ class _CustomPageViewState extends State<CustomPageView> {
   Widget build(BuildContext context) {
     return PageView.builder(
       controller: controller,
+
       clipBehavior: Clip.none,
+
       physics: const BouncingScrollPhysics(),
+
       padEnds: true,
+
       itemCount: widget.movies.length,
+
       onPageChanged: (index) {
         setState(() {
           currentIndex = index;
@@ -42,20 +52,41 @@ class _CustomPageViewState extends State<CustomPageView> {
 
         widget.onPageChanged(index);
       },
+
       itemBuilder: (context, index) {
         final bool isSelected = currentIndex == index;
 
+        final movie = widget.movies[index];
+
         return AnimatedContainer(
           duration: const Duration(milliseconds: 250),
+
           curve: Curves.easeOut,
+
           margin: EdgeInsets.symmetric(
             horizontal: 2,
             vertical: isSelected ? 0 : 20,
           ),
+
           child: Transform.scale(
             scale: isSelected ? 0.82 : 0.72,
+
             child: MovieCard(
-              image: widget.movies[index],
+              image: movie.image,
+
+              rating: movie.rating.toString(),
+
+              onTap: () {
+                Navigator.push(
+                  context,
+
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return MovieDetailsScreen(movie: movie);
+                    },
+                  ),
+                );
+              },
             ),
           ),
         );

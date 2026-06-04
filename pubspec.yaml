@@ -36,6 +36,7 @@ dependencies:
   country_flags: ^3.0.0
 
   dio: ^5.9.0
+  flutter_bloc: ^8.1.6
 
   firebase_core: ^4.9.0
   firebase_auth: ^6.5.1
