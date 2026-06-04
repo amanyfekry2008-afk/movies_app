@@ -4,15 +4,45 @@ import 'package:movies_app/features/browse/Movie_List.dart';
 import 'package:movies_app/features/home/widgets/banner_section.dart';
 import 'package:movies_app/features/home/widgets/movies_category_section.dart';
 import 'package:movies_app/features/movie_details/movie_model.dart';
-
-class HomeScreen extends StatelessWidget {
+import 'dart:math';
+class HomeScreen extends StatefulWidget {
   final void Function(String genre) onSeeMore;
-  const HomeScreen({super.key, required this.onSeeMore});
+
+  const HomeScreen({
+    super.key,
+    required this.onSeeMore,
+  });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<MovieModel> movies = genreMovies;
+
+  final List<String> genres = [
+    'Action',
+    'Adventure',
+    'Drama',
+    'Comedy',
+    'Animation',
+  ];
+
+  late String firstGenre;
+  late String secondGenre;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final shuffledGenres = List<String>.from(genres)..shuffle(Random());
+
+    firstGenre = shuffledGenres[0];
+    secondGenre = shuffledGenres[1];
+  }
 
   @override
   Widget build(BuildContext context) {
-    final List<MovieModel> movies = genreMovies;
-
     return Scaffold(
       backgroundColor: AppColors.black,
       body: SafeArea(
@@ -20,16 +50,19 @@ class HomeScreen extends StatelessWidget {
           children: [
             BannerSection(),
             const SizedBox(height: 32),
+
             MoviesCategorySection(
-              title: 'Action',
+              title: firstGenre,
               movies: movies,
-              onSeeMore: onSeeMore,
+              onSeeMore: widget.onSeeMore,
             ),
+
             const SizedBox(height: 32),
+
             MoviesCategorySection(
-              title: 'Drama',
+              title: secondGenre,
               movies: movies,
-              onSeeMore: onSeeMore,
+              onSeeMore: widget.onSeeMore,
             ),
           ],
         ),

@@ -51,7 +51,10 @@ class MovieCard extends StatelessWidget {
           Positioned(
             top: 12,
             left: 12,
-            child: MovieRating(text: movie.rating.toStringAsFixed(1)),
+            child: MovieRating(
+              text: movie.rating.toStringAsFixed(1),
+              icon: Icons.star,
+            ),
           ),
         ],
       ),

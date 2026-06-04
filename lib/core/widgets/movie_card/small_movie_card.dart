@@ -37,7 +37,11 @@ class SmallMovieCard extends StatelessWidget {
           ),
         ),
 
-        const Positioned(top: 8, left: 8, child: MovieRating(text: '7.7')),
+        const Positioned(
+          top: 8,
+          left: 8,
+          child: MovieRating(text: '7.7', icon: Icons.star),
+        ),
       ],
     );
   }
