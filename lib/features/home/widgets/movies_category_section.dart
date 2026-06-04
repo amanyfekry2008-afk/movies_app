@@ -1,38 +1,51 @@
+
 import 'package:flutter/material.dart';
 import 'package:movies_app/features/home/widgets/horizontal_movies_list.dart';
 import 'package:movies_app/features/home/widgets/movies_header.dart';
 import 'package:movies_app/features/movie_details/movie_model.dart';
 
 class MoviesCategorySection
-    extends StatelessWidget {
+extends StatelessWidget {
 
-  final String title;
+final String title;
 
-  final List<MovieModel> movies;
+final List<MovieModel> movies;
 
-  const MoviesCategorySection({
-    super.key,
-    required this.title,
-    required this.movies,
-  });
+final void Function(String genre)
+onSeeMore;
 
-  @override
-  Widget build(BuildContext context) {
+const MoviesCategorySection({
+super.key,
+required this.title,
+required this.movies,
+required this.onSeeMore,
+});
 
-    return Column(
-      crossAxisAlignment:
-      CrossAxisAlignment.start,
+@override
+Widget build(BuildContext context) {
 
-      children: [
+return Column(
+crossAxisAlignment:
+CrossAxisAlignment.start,
 
-        MoviesHeader(title: title),
+children: [
 
-        const SizedBox(height: 12),
+MoviesHeader(
+title: title,
 
-        HorizontalMoviesList(
-          movies: movies,
-        ),
-      ],
-    );
-  }
+onSeeMore:
+onSeeMore,
+),
+
+const SizedBox(
+height: 12,
+),
+
+HorizontalMoviesList(
+movies: movies,
+),
+],
+);
 }
+}
+

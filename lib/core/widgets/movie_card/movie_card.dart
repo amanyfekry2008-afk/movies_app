@@ -3,7 +3,6 @@ import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_rating.dart';
 
 class MovieCard extends StatelessWidget {
-
   final String image;
   final String rating;
   final VoidCallback? onTap;
@@ -17,9 +16,7 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final bool isNetworkImage =
-    image.startsWith('http');
+    final bool isNetworkImage = image.startsWith('http');
 
     return GestureDetector(
       onTap: onTap,
@@ -28,20 +25,15 @@ class MovieCard extends StatelessWidget {
         clipBehavior: Clip.none,
 
         children: [
-
           Container(
             decoration: BoxDecoration(
-              borderRadius:
-              BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20),
 
               color: AppColors.black,
 
               boxShadow: [
                 BoxShadow(
-                  color:
-                  Colors.black.withValues(
-                    alpha: 0.3,
-                  ),
+                  color: Colors.black.withValues(alpha: 0.3),
 
                   blurRadius: 10,
 
@@ -51,25 +43,23 @@ class MovieCard extends StatelessWidget {
             ),
 
             child: ClipRRect(
-              borderRadius:
-              BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20),
 
               clipBehavior: Clip.antiAlias,
 
-              child:
-              isNetworkImage
+              child: isNetworkImage
                   ? Image.network(
-                image,
-                width: 234,
-                height: 351,
-                fit: BoxFit.cover,
-              )
+                      image,
+                      width: 234,
+                      height: 351,
+                      fit: BoxFit.cover,
+                    )
                   : Image.asset(
-                image,
-                width: 234,
-                height: 351,
-                fit: BoxFit.cover,
-              ),
+                      image,
+                      width: 234,
+                      height: 351,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
 
@@ -77,9 +67,7 @@ class MovieCard extends StatelessWidget {
             top: 12,
             left: 12,
 
-            child: MovieRating(
-              text: rating,
-            ),
+            child: MovieRating(text: rating, icon: Icons.star),
           ),
         ],
       ),

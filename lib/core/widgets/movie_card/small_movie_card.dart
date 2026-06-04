@@ -6,11 +6,7 @@ class SmallMovieCard extends StatelessWidget {
   final String image;
   final String rating;
 
-  const SmallMovieCard({
-    super.key,
-    required this.image,
-    required this.rating,
-  });
+  const SmallMovieCard({super.key, required this.image, required this.rating});
 
   @override
   Widget build(BuildContext context) {
@@ -18,23 +14,24 @@ class SmallMovieCard extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius:
-            BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20),
+
             color: AppColors.black,
+
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(
-                  alpha: 0.3,
-                ),
+                color: Colors.black.withValues(alpha: 0.3),
+
                 blurRadius: 10,
+
                 offset: const Offset(0, 4),
               ),
             ],
           ),
 
           child: ClipRRect(
-            borderRadius:
-            BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(16),
+
             clipBehavior: Clip.antiAlias,
 
             child: Image.network(
@@ -49,9 +46,8 @@ class SmallMovieCard extends StatelessWidget {
         Positioned(
           top: 8,
           left: 8,
-          child: MovieRating(
-            text: rating,
-          ),
+
+          child: MovieRating(text: rating, icon: Icons.star),
         ),
       ],
     );

@@ -5,148 +5,96 @@ import 'package:movies_app/core/utils/app_text.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_card.dart';
 import 'package:movies_app/features/browse/cubit/browse_cubit.dart';
 import 'package:movies_app/features/browse/cubit/browse_state.dart';
+import 'package:movies_app/features/movie_details/movie_details_screen.dart';
 
-class BrowseScreen
-    extends StatelessWidget {
+class BrowseScreen extends StatefulWidget {
+  final String? genre;
 
-  const BrowseScreen({
-    super.key,
-  });
+  const BrowseScreen({super.key, this.genre});
 
   @override
-  Widget build(BuildContext context) {
+  State<BrowseScreen> createState() => _BrowseScreenState();
+}
 
+class _BrowseScreenState extends State<BrowseScreen> {
+  @override
+  Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-      BrowseCubit()
-        ..getMoviesByGenre(
-          'Action',
-        ),
+      create: (context) {
+        final cubit = BrowseCubit();
+
+        cubit.getMoviesByGenre(widget.genre ?? 'Action');
+
+        return cubit;
+      },
 
       child: Scaffold(
-        backgroundColor:
-        AppColors.black,
+        backgroundColor: AppColors.black,
 
         body: SafeArea(
           child: Padding(
-            padding:
-            const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
 
-            child:
-            BlocBuilder<
-                BrowseCubit,
-                BrowseState>(
-              builder:
-                  (context, state) {
-
-                final cubit =
-                context
-                    .read<
-                    BrowseCubit>();
+            child: BlocBuilder<BrowseCubit, BrowseState>(
+              builder: (context, state) {
+                final cubit = context.read<BrowseCubit>();
 
                 return Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-
                     SizedBox(
                       height: 40,
 
-                      child:
-                      ListView.separated(
-                        scrollDirection:
-                        Axis.horizontal,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
 
-                        itemCount:
-                        cubit.genres.length,
+                        itemCount: cubit.genres.length,
 
-                        separatorBuilder:
-                            (
-                            context,
-                            index,
-                            ) {
-
-                          return const SizedBox(
-                            width: 8,
-                          );
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 8);
                         },
 
-                        itemBuilder:
-                            (
-                            context,
-                            index,
-                            ) {
+                        itemBuilder: (context, index) {
+                          final genre = cubit.genres[index];
 
-                          final genre =
-                          cubit.genres[index];
+                          bool isSelected = false;
 
-                          bool isSelected =
-                          false;
-
-                          if (state
-                          is BrowseSuccess) {
-
-                            isSelected =
-                                state.selectedGenre ==
-                                    genre;
+                          if (state is BrowseSuccess) {
+                            isSelected = state.selectedGenre == genre;
                           }
 
                           return GestureDetector(
                             onTap: () {
-
-                              cubit
-                                  .getMoviesByGenre(
-                                genre,
-                              );
+                              cubit.getMoviesByGenre(genre);
                             },
 
                             child: Container(
-                              padding:
-                              const EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: 16,
                               ),
 
-                              decoration:
-                              BoxDecoration(
-                                color:
-                                isSelected
-                                    ? AppColors
-                                    .yellow
-                                    : AppColors
-                                    .grey,
+                              decoration: BoxDecoration(
+                                color: isSelected
+                                    ? AppColors.yellow
+                                    : AppColors.grey,
 
-                                borderRadius:
-                                BorderRadius.circular(
-                                  16,
-                                ),
+                                borderRadius: BorderRadius.circular(16),
                               ),
 
-                              alignment:
-                              Alignment.center,
+                              alignment: Alignment.center,
 
                               child: Text(
                                 genre,
 
-                                style:
-                                AppText.regular
-                                    .copyWith(
-                                  color:
-                                  isSelected
-                                      ? AppColors
-                                      .black
-                                      : AppColors
-                                      .white,
+                                style: AppText.regular.copyWith(
+                                  color: isSelected
+                                      ? AppColors.black
+                                      : AppColors.white,
 
-                                  fontSize:
-                                  14,
+                                  fontSize: 14,
 
-                                  fontWeight:
-                                  FontWeight
-                                      .w500,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
@@ -155,80 +103,63 @@ class BrowseScreen
                       ),
                     ),
 
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
 
                     Expanded(
-                      child:
-                      Builder(
-                        builder:
-                            (context) {
-
-                          if (state
-                          is BrowseLoading) {
-
+                      child: Builder(
+                        builder: (context) {
+                          if (state is BrowseLoading) {
                             return const Center(
-                              child:
-                              CircularProgressIndicator(),
+                              child: CircularProgressIndicator(),
                             );
                           }
 
-                          if (state
-                          is BrowseError) {
-
+                          if (state is BrowseError) {
                             return Center(
                               child: Text(
-                                state
-                                    .errorMessage,
+                                state.errorMessage,
 
-                                style:
-                                AppText.regular,
+                                style: AppText.regular,
                               ),
                             );
                           }
 
-                          if (state
-                          is BrowseSuccess) {
-
+                          if (state is BrowseSuccess) {
                             return GridView.builder(
-                              itemCount:
-                              state
-                                  .movies
-                                  .length,
+                              itemCount: state.movies.length,
 
                               gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount:
-                                2,
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
 
-                                crossAxisSpacing:
-                                14,
+                                    crossAxisSpacing: 14,
 
-                                mainAxisSpacing:
-                                14,
+                                    mainAxisSpacing: 14,
 
-                                childAspectRatio:
-                                0.67,
-                              ),
+                                    childAspectRatio: 0.67,
+                                  ),
 
-                              itemBuilder:
-                                  (
-                                  context,
-                                  index,
-                                  ) {
-
-                                final movie =
-                                state
-                                    .movies[index];
+                              itemBuilder: (context, index) {
+                                final movie = state.movies[index];
 
                                 return MovieCard(
-                                  image:
-                                  movie.image,
+                                  image: movie.image,
 
-                                  rating:
-                                  movie.rating
-                                      .toString(),
+                                  rating: movie.rating.toString(),
+
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return MovieDetailsScreen(
+                                            movie: movie,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
                                 );
                               },
                             );
