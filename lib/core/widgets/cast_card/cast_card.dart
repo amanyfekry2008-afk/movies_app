@@ -25,12 +25,7 @@ class CastCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              image,
-              width: 60,
-              height: 60,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(image, width: 60, height: 60, fit: BoxFit.cover),
           ),
 
           const SizedBox(width: 12),
@@ -41,20 +36,14 @@ class CastCard extends StatelessWidget {
               children: [
                 Text(
                   'Name : $name',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 ),
 
                 const SizedBox(height: 6),
 
                 Text(
                   'Character : $character',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
             ),

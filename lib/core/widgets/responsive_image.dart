@@ -20,17 +20,12 @@ class ResponsiveImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageWidget = AspectRatio(
       aspectRatio: width / height,
-      child: Image.asset(
-        image,
-        fit: fit,
-      ),
+      child: Image.asset(image, fit: fit),
     );
 
     if (useResponsiveWidth) {
       return SizedBox(
-        width:
-        MediaQuery.of(context).size.width *
-            (width / figmaScreenWidth),
+        width: MediaQuery.of(context).size.width * (width / figmaScreenWidth),
         child: imageWidget,
       );
     }

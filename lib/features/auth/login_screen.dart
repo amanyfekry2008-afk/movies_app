@@ -63,16 +63,13 @@ class LoginScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                          const ResetPasswordScreen(),
+                          builder: (context) => const ResetPasswordScreen(),
                         ),
                       );
                     },
                     child: Text(
                       "Forgot Password?",
-                      style: AppText.regular.copyWith(
-                        color: AppColors.yellow,
-                      ),
+                      style: AppText.regular.copyWith(color: AppColors.yellow),
                     ),
                   ),
                 ),
@@ -85,8 +82,7 @@ class LoginScreen extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                        const LayoutScreen(),
+                        builder: (context) => const LayoutScreen(),
                       ),
                     );
                   },
@@ -107,8 +103,7 @@ class LoginScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                            const RegisterScreen(),
+                            builder: (context) => const RegisterScreen(),
                           ),
                         );
                       },
@@ -127,11 +122,7 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 60,
-                      height: 1,
-                      color: AppColors.yellow,
-                    ),
+                    Container(width: 60, height: 1, color: AppColors.yellow),
 
                     const SizedBox(width: 10),
 
@@ -145,11 +136,7 @@ class LoginScreen extends StatelessWidget {
 
                     const SizedBox(width: 10),
 
-                    Container(
-                      width: 60,
-                      height: 1,
-                      color: AppColors.yellow,
-                    ),
+                    Container(width: 60, height: 1, color: AppColors.yellow),
                   ],
                 ),
 
@@ -158,10 +145,7 @@ class LoginScreen extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(
-                      double.infinity,
-                      55,
-                    ),
+                    minimumSize: const Size(double.infinity, 55),
                     backgroundColor: AppColors.yellow,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -170,10 +154,7 @@ class LoginScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset(
-                        AppIcons.googleIcon,
-                        height: 24,
-                      ),
+                      SvgPicture.asset(AppIcons.googleIcon, height: 24),
 
                       const SizedBox(width: 12),
 

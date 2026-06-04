@@ -11,8 +11,7 @@ class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() =>
-      _RegisterScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
@@ -62,14 +61,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 24),
 
                 Padding(
-                  padding:
-                  const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(3, (index) {
-                      final isSelected =
-                          selectedAvatar == index;
+                      final isSelected = selectedAvatar == index;
 
                       return GestureDetector(
                         onTap: () {
@@ -78,19 +74,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           });
                         },
                         child: AnimatedContainer(
-                          duration: const Duration(
-                            milliseconds: 200,
-                          ),
+                          duration: const Duration(milliseconds: 200),
                           curve: Curves.easeOut,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                          ),
-                          width: isSelected
-                              ? width * 0.22
-                              : width * 0.18,
-                          height: isSelected
-                              ? width * 0.22
-                              : width * 0.18,
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
+                          width: isSelected ? width * 0.22 : width * 0.18,
+                          height: isSelected ? width * 0.22 : width * 0.18,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
@@ -101,12 +89,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                           child: Padding(
-                            padding:
-                            const EdgeInsets.all(3),
+                            padding: const EdgeInsets.all(3),
                             child: CircleAvatar(
-                              backgroundImage: AssetImage(
-                                avatars[index],
-                              ),
+                              backgroundImage: AssetImage(avatars[index]),
                             ),
                           ),
                         ),
@@ -120,9 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text(
                   "Avatar",
                   textAlign: TextAlign.center,
-                  style: AppText.regular.copyWith(
-                    fontSize: 14,
-                  ),
+                  style: AppText.regular.copyWith(fontSize: 14),
                 ),
 
                 const SizedBox(height: 24),
@@ -172,24 +155,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 const SizedBox(height: 24),
 
-                CustomButton(
-                  text: "Create Account",
-                  onPressed: () {},
-                ),
+                CustomButton(text: "Create Account", onPressed: () {}),
 
                 const SizedBox(height: 8),
 
                 Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Already have an account? ",
                       style: AppText.regular.copyWith(
-                        color:
-                        AppColors.white.withValues(
-                          alpha: 0.7,
-                        ),
+                        color: AppColors.white.withValues(alpha: 0.7),
                       ),
                     ),
 
@@ -198,8 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                            const LoginScreen(),
+                            builder: (context) => const LoginScreen(),
                           ),
                         );
                       },
@@ -221,18 +196,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.grey,
-                      borderRadius: BorderRadius.circular(
-                        30,
-                      ),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ClipRRect(
-                          borderRadius:
-                          BorderRadius.circular(50),
-                          child:
-                          CountryFlag.fromCountryCode(
+                          borderRadius: BorderRadius.circular(50),
+                          child: CountryFlag.fromCountryCode(
                             'US',
                             height: 22,
                             width: 22,
@@ -242,10 +213,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const SizedBox(width: 10),
 
                         ClipRRect(
-                          borderRadius:
-                          BorderRadius.circular(50),
-                          child:
-                          CountryFlag.fromCountryCode(
+                          borderRadius: BorderRadius.circular(50),
+                          child: CountryFlag.fromCountryCode(
                             'EG',
                             height: 22,
                             width: 22,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/features/browse/browse_screen.dart';
@@ -8,76 +7,53 @@ import 'package:movies_app/features/profile/profile_screen.dart';
 import 'package:movies_app/features/search/search_screen.dart';
 
 class LayoutScreen extends StatefulWidget {
-const LayoutScreen({super.key});
+  const LayoutScreen({super.key});
 
-@override
-State<LayoutScreen> createState() =>
-_LayoutScreenState();
+  @override
+  State<LayoutScreen> createState() => _LayoutScreenState();
 }
 
-class _LayoutScreenState
-extends State<LayoutScreen> {
+class _LayoutScreenState extends State<LayoutScreen> {
+  int currentIndex = 0;
 
-int currentIndex = 0;
+  String selectedGenreForBrowse = 'Action';
 
-String selectedGenreForBrowse =
-'Action';
+  void openBrowseWithGenre(String genre) {
+    setState(() {
+      selectedGenreForBrowse = genre;
 
-void openBrowseWithGenre(
-String genre,
-) {
+      currentIndex = 2;
+    });
+  }
 
-setState(() {
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> screens = [
+      HomeScreen(onSeeMore: openBrowseWithGenre),
 
-selectedGenreForBrowse =
-genre;
+      const SearchScreen(),
 
-currentIndex = 2;
-});
+      BrowseScreen(genre: selectedGenreForBrowse),
+
+      const ProfileScreen(),
+    ];
+
+    return Scaffold(
+      extendBody: true,
+
+      backgroundColor: AppColors.black,
+
+      body: screens[currentIndex],
+
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+
+        currentIndex: currentIndex,
+      ),
+    );
+  }
 }
-
-@override
-Widget build(BuildContext context) {
-
-final List<Widget> screens = [
-
-HomeScreen(
-onSeeMore:
-openBrowseWithGenre,
-),
-
-const SearchScreen(),
-
-BrowseScreen(
-genre:
-selectedGenreForBrowse,
-),
-
-const ProfileScreen(),
-];
-
-return Scaffold(
-extendBody: true,
-
-backgroundColor:
-AppColors.black,
-
-body:
-screens[currentIndex],
-
-bottomNavigationBar:
-CustomBottomNavigationBar(
-onTap: (index) {
-
-setState(() {
-currentIndex = index;
-});
-},
-
-currentIndex:
-currentIndex,
-),
-);
-}
-}
-

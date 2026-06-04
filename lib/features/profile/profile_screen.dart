@@ -45,14 +45,8 @@ class ProfileScreen extends StatelessWidget {
                   labelColor: AppColors.yellow,
                   unselectedLabelColor: AppColors.white,
                   tabs: [
-                    Tab(
-                      icon: Icon(Icons.list),
-                      text: 'Watch List',
-                    ),
-                    Tab(
-                      icon: Icon(Icons.folder),
-                      text: 'History',
-                    ),
+                    Tab(icon: Icon(Icons.list), text: 'Watch List'),
+                    Tab(icon: Icon(Icons.folder), text: 'History'),
                   ],
                 ),
               ),
@@ -62,12 +56,7 @@ class ProfileScreen extends StatelessWidget {
               Expanded(
                 child: TabBarView(
                   children: [
-                    Center(
-                      child: Image.asset(
-                        AppImages.empty,
-                        width: 140,
-                      ),
-                    ),
+                    Center(child: Image.asset(AppImages.empty, width: 140)),
 
                     MoviesGrid(movies: movies),
                   ],

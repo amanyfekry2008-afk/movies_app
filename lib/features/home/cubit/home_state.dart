@@ -2,26 +2,18 @@ import 'package:movies_app/features/movie_details/movie_model.dart';
 
 abstract class HomeState {}
 
-class HomeLoading
-    extends HomeState {}
+class HomeLoading extends HomeState {}
 
-class HomeSuccess
-    extends HomeState {
+class HomeSuccess extends HomeState {
+  final List<MovieModel> bannerMovies;
 
-  final List<MovieModel>
-  bannerMovies;
+  final List<MovieModel> actionMovies;
 
-  final List<MovieModel>
-  actionMovies;
+  final List<MovieModel> dramaMovies;
 
-  final List<MovieModel>
-  dramaMovies;
+  final List<MovieModel> comedyMovies;
 
-  final List<MovieModel>
-  comedyMovies;
-
-  final List<MovieModel>
-  sciFiMovies;
+  final List<MovieModel> sciFiMovies;
 
   HomeSuccess({
     required this.bannerMovies,
@@ -32,12 +24,8 @@ class HomeSuccess
   });
 }
 
-class HomeError
-    extends HomeState {
-
+class HomeError extends HomeState {
   final String errorMessage;
 
-  HomeError(
-      this.errorMessage,
-      );
+  HomeError(this.errorMessage);
 }

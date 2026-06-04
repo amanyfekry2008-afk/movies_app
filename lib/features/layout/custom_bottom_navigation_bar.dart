@@ -4,7 +4,7 @@ import 'package:movies_app/core/utils/app_icons.dart';
 import 'package:movies_app/features/layout/navigation_bar_item.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
-  final void  Function(int) onTap;
+  final void Function(int) onTap;
   final int currentIndex;
   const CustomBottomNavigationBar({
     super.key,
@@ -15,9 +15,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-
       child: Container(
-        padding:  const EdgeInsets.symmetric(vertical: 16,),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: AppColors.grey,
@@ -58,7 +57,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
               width: 22.42,
               height: 22.42,
             ),
-      
           ],
         ),
       ),

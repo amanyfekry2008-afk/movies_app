@@ -66,10 +66,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
                 const SizedBox(height: 24),
 
-                CustomButton(
-                  text: "Verify Email",
-                  onPressed: () {},
-                ),
+                CustomButton(text: "Verify Email", onPressed: () {}),
               ],
             ),
           ),

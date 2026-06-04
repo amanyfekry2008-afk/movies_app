@@ -23,13 +23,8 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor:
-          isOutlined ? AppColors.black : AppColors.yellow,
-          side: isOutlined
-              ? const BorderSide(
-            color: AppColors.yellow,
-          )
-              : null,
+          backgroundColor: isOutlined ? AppColors.black : AppColors.yellow,
+          side: isOutlined ? const BorderSide(color: AppColors.yellow) : null,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -37,10 +32,7 @@ class CustomButton extends StatelessWidget {
         child: Text(
           text,
           style: AppText.regular.copyWith(
-            color:
-            isOutlined
-                ? AppColors.yellow
-                : AppColors.black,
+            color: isOutlined ? AppColors.yellow : AppColors.black,
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
