@@ -104,4 +104,27 @@ class MovieService {
 
     return moviesList;
   }
+  Future<List<MovieModel>>
+  searchMovies(
+      String movieName,
+      ) async {
+
+    Response response = await dio.get(
+      'https://movies-api.accel.li/api/v2/list_movies.json?query_term=$movieName',
+    );
+
+    List moviesJson =
+        response.data['data']['movies']
+            ?? [];
+
+    List<MovieModel> moviesList =
+    moviesJson.map((movie) {
+
+      return MovieModel.fromJson(
+        movie,
+      );
+    }).toList();
+
+    return moviesList;
+  }
 }
