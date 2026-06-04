@@ -98,4 +98,12 @@ class AuthRepository {
     );
   }
 
+  Future<void> deleteUser(String uid) async {
+    await firestore.collection('users').doc(uid).delete();
+  }
+
+  Future<void> signOut() async {
+    await firebaseAuth.signOut();
+  }
+
 }

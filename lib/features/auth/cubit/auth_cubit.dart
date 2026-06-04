@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../models/user_model.dart';
 import 'auth_state.dart';
@@ -138,6 +139,36 @@ class AuthCubit extends Cubit<AuthState> {
       user = newUser;
 
       emit(AuthSuccess());
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    emit(AuthLoading());
+
+    try {
+      final uid = user!.uid;
+
+      await authRepository.deleteUser(uid);
+
+      await FirebaseAuth.instance.currentUser!.delete();
+
+      emit(AuthSuccess());
+    } catch (e) {
+      emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> signOut() async {
+    emit(AuthLoading());
+
+    try {
+      await authRepository.signOut();
+
+      user = null;
+
+      emit(AuthInitial());
     } catch (e) {
       emit(AuthError(e.toString()));
     }
