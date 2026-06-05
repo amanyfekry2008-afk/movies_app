@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_icons.dart';
+import 'package:movies_app/core/utils/app_images.dart';
 import 'package:movies_app/core/utils/app_text.dart';
 import '../onboarding_screen/screen/onboarding_screen.dart';
 
@@ -41,11 +42,11 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 const SizedBox(),
 
-                Image.asset(AppIcons.filmIcon, height: height * 0.60),
+                Image.asset(AppIcons.filmIcon, height: height * 0.30),
 
                 Column(
                   children: [
-                    Image.asset(AppIcons.routeIcon, height: height * 0.10),
+                    Image.asset(AppImages.routeIcon, height: height * 0.10),
 
                     const SizedBox(height: 4),
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_text.dart';
+import 'package:movies_app/core/widgets/cast_card/cast_card.dart';
+import 'package:movies_app/core/widgets/cast_card/cast_model.dart';
 import 'package:movies_app/core/widgets/custom_button.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_card.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_rating.dart';
@@ -186,36 +188,34 @@ class MovieDetailsScreen extends StatelessWidget {
 
                             const SizedBox(height: 16),
 
-                            SizedBox(
-                              height: 180,
+                            ListView.separated(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
 
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
+                              itemCount: state.movie.screenshots.length,
 
-                                itemCount: state.movie.screenshots.length,
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(height: 12);
+                              },
 
-                                separatorBuilder: (context, index) {
-                                  return const SizedBox(width: 12);
-                                },
+                              itemBuilder: (context, index) {
+                                final image = state.movie.screenshots[index];
 
-                                itemBuilder: (context, index) {
-                                  final image = state.movie.screenshots[index];
+                                if (image.isEmpty) {
+                                  return const SizedBox();
+                                }
 
-                                  if (image.isEmpty) {
-                                    return const SizedBox();
-                                  }
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
 
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(16),
-
-                                    child: Image.network(
-                                      image,
-                                      width: 300,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  );
-                                },
-                              ),
+                                  child: Image.network(
+                                    image,
+                                    width: 300,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              },
                             ),
 
                             const SizedBox(height: 24),
@@ -324,16 +324,32 @@ class MovieDetailsScreen extends StatelessWidget {
                                 );
                               }).toList(),
                             ),
+                            Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Cast',
+                        style: AppText.title.copyWith(fontSize: 20),
+                      ),
+                    ),
+                    // connect cast to api
+                    
+                    // ListView.separated(
+                    //   shrinkWrap: true,
+                    //   physics: const NeverScrollableScrollPhysics(),
+                    //   itemCount: state.movie.cast.length,
+                    //   separatorBuilder: (_, __) => const SizedBox(height: 10),
+                    //   itemBuilder: (context, index) {
+                    //     final actor = state.movie.cast[index];
+
+                    //     return CastCard(
+                    //       image: actor.image,
+                    //       name: actor.name,
+                    //       character: actor.character,
+                    //     );
+                    //   },
+                    // ),
 
                             const SizedBox(height: 32),
-
-                            Text('Suggestions', style: AppText.title),
-
-                            const SizedBox(height: 16),
-
-                            HorizontalMoviesList(
-                              movies: state.suggestionsMovies,
-                            ),
                           ],
                         ),
                       ),
