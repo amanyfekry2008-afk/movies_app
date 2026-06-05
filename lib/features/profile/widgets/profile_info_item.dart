@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_text.dart';
+
 class ProfileInfoItem extends StatelessWidget {
   final String number;
   final String title;
 
-  const ProfileInfoItem({
-    super.key,
-    required this.number,
-    required this.title,
-  });
+  const ProfileInfoItem({super.key, required this.number, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +26,7 @@ class ProfileInfoItem extends StatelessWidget {
 
         Text(
           title,
-          style: AppText.regular.copyWith(
-            color: AppColors.white,
-            fontSize: 14,
-          ),
+          style: AppText.regular.copyWith(color: AppColors.white, fontSize: 14),
         ),
       ],
     );

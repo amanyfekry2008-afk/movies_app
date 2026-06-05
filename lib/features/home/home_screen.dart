@@ -8,7 +8,6 @@ import 'package:movies_app/features/home/cubit/home_state.dart';
 import 'package:movies_app/features/home/widgets/banner_section.dart';
 import 'package:movies_app/features/home/widgets/movies_category_section.dart';
 
-
 class HomeScreen extends StatefulWidget {
   final void Function(String genre) onSeeMore;
 
@@ -19,21 +18,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> genres = ['Action', 'Drama', 'Comedy', 'Sci-Fi', 'Horror'];
+  final List<String> genres = ['Action', 'Drama', 'Comedy', 'Sci-Fi'];
 
-  late String randomGenre;
-
-  @override
-  void initState() {
-    super.initState();
-
+  String get randomGenre {
     genres.shuffle(Random());
 
-    randomGenre = genres.first;
+    return genres.first;
   }
 
   @override
   Widget build(BuildContext context) {
+    final selectedGenre = randomGenre;
+
     return BlocProvider(
       create: (context) => HomeCubit()..getMovies(),
 
@@ -65,13 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 32),
 
                     MoviesCategorySection(
-                      title: randomGenre,
+                      title: selectedGenre,
 
-                      movies: randomGenre == 'Action'
+                      movies: selectedGenre == 'Action'
                           ? state.actionMovies
-                          : randomGenre == 'Drama'
+                          : selectedGenre == 'Drama'
                           ? state.dramaMovies
-                          : randomGenre == 'Comedy'
+                          : selectedGenre == 'Comedy'
                           ? state.comedyMovies
                           : state.sciFiMovies,
 

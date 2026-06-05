@@ -4,6 +4,7 @@ import 'package:movies_app/core/utils/app_images.dart';
 import 'package:movies_app/features/auth/login_screen.dart';
 import '../model/onboarding_model.dart';
 import '../widgets/onboarding_sheet.dart';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -23,7 +24,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       image: AppImages.findYourFavouriteMovie,
       title: 'Find Your Next Favorite Movie Here',
       description:
-      'Get access to a huge library of movies to suit all tastes. You will surely like it.',
+          'Get access to a huge library of movies to suit all tastes. You will surely like it.',
     ),
 
     OnboardingModel(
@@ -34,7 +35,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       image: AppImages.discoverMore,
       title: 'Discover Movies',
       description:
-      'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.',
+          'Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.',
     ),
 
     OnboardingModel(
@@ -45,7 +46,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       image: AppImages.exploreAllGenres,
       title: 'Explore All Genres',
       description:
-      'Discover movies from every genre, in all available qualities. Find something new and exciting to watch every day.',
+          'Discover movies from every genre, in all available qualities. Find something new and exciting to watch every day.',
     ),
 
     OnboardingModel(
@@ -56,7 +57,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       image: AppImages.createWatchLists,
       title: 'Create Watch Lists',
       description:
-      'Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres.',
+          'Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres.',
     ),
 
     OnboardingModel(
@@ -67,7 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       image: AppImages.rateReviewLearn,
       title: 'Rate, Review, and Learn',
       description:
-      'Share your thoughts on the movies you have watched. Dive deep into film details and help others discover great movies with your reviews.',
+          'Share your thoughts on the movies you have watched. Dive deep into film details and help others discover great movies with your reviews.',
     ),
 
     OnboardingModel(
@@ -130,10 +131,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Positioned.fill(
                 child: SafeArea(
                   bottom: false,
-                  child: Image.asset(
-                    onboarding.image,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.asset(onboarding.image, fit: BoxFit.cover),
                 ),
               ),
 

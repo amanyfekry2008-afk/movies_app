@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
-import 'package:movies_app/core/utils/app_images.dart';
 import 'package:movies_app/core/utils/app_text.dart';
 
 import '../../../core/utils/app_constants.dart';
@@ -15,14 +14,11 @@ class ProfileSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final user = context.watch<AuthCubit>().user;
 
     if (context.watch<AuthCubit>().state is AuthLoading &&
         context.watch<AuthCubit>().user == null) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     return Padding(
