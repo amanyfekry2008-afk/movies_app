@@ -14,8 +14,7 @@ class AuthRepository {
     required String phone,
     required int avatar,
   }) async {
-    final userCredential =
-    await firebaseAuth.createUserWithEmailAndPassword(
+    final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -64,8 +63,7 @@ class AuthRepository {
       idToken: googleAuth.idToken,
     );
 
-    final result =
-    await firebaseAuth.signInWithCredential(credential);
+    final result = await firebaseAuth.signInWithCredential(credential);
 
     final user = result.user!;
 
@@ -92,10 +90,16 @@ class AuthRepository {
   }
 
   Future<void> updateUser(UserModel user) async {
-    await firestore.collection('users').doc(user.uid).set(
-      user.toMap(),
-      SetOptions(merge: true),
-    );
+    await firestore
+        .collection('users')
+        .doc(user.uid)
+        .set(user.toMap(), SetOptions(merge: true));
+  }
+  Future<void> deleteUser(String uid) async {
+    await firestore.collection('users').doc(uid).delete();
   }
 
+  Future<void> signOut() async {
+    await firebaseAuth.signOut();
+  }
 }

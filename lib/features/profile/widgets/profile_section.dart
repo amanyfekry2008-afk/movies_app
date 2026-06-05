@@ -2,31 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_text.dart';
-
-import '../../../core/utils/app_constants.dart';
+import 'package:movies_app/features/auth/login_screen.dart';
+import 'package:movies_app/features/profile/widgets/profile_info_item.dart';
 import '../../auth/cubit/auth_cubit.dart';
-import '../../auth/cubit/auth_state.dart';
 import '../../update_profile/update_profile_screen.dart';
-import 'profile_info_item.dart';
 
 class ProfileSection extends StatelessWidget {
-  const ProfileSection({super.key});
+  final dynamic user;
+
+  const ProfileSection({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<AuthCubit>().user;
-
-    if (context.watch<AuthCubit>().state is AuthLoading &&
-        context.watch<AuthCubit>().user == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
+    final avatars = [
+      'assets/images/avatar.png',
+      'assets/images/avatar.png',
+      'assets/images/avatar.png',
+    ];
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
 
       child: Container(
         padding: const EdgeInsets.all(16),
-
         decoration: BoxDecoration(
           color: AppColors.grey,
           borderRadius: BorderRadius.circular(16),
@@ -38,25 +36,18 @@ class ProfileSection extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 36,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: AssetImage(
-                    avatars[user!.avatar.clamp(0, avatars.length - 1)],
-                  ),
+                  backgroundImage: AssetImage(avatars[user.avatar]),
                 ),
 
                 const SizedBox(width: 20),
 
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const [
-                        ProfileInfoItem(number: '12', title: 'Wish List'),
-
-                        ProfileInfoItem(number: '10', title: 'History'),
-                      ],
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      ProfileInfoItem(number: '12', title: 'Wish List'),
+                      ProfileInfoItem(number: '10', title: 'History'),
+                    ],
                   ),
                 ),
               ],
@@ -81,14 +72,6 @@ class ProfileSection extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.yellow,
-                      elevation: 0,
-                      minimumSize: const Size.fromHeight(46),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -97,11 +80,16 @@ class ProfileSection extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Text(
-                      'Edit Profile',
-                      style: AppText.regular.copyWith(
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w600,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.yellow,
+                      minimumSize: const Size.fromHeight(46),
+                    ),
+                    child: const Text(
+                      "Edit Profile",
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -111,21 +99,33 @@ class ProfileSection extends StatelessWidget {
 
                 Expanded(
                   child: ElevatedButton(
+                    onPressed: () async {
+                      await context.read<AuthCubit>().signOut();
+
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                        (route) => false,
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.red,
-                      elevation: 0,
                       minimumSize: const Size.fromHeight(46),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
                     ),
-                    onPressed: () {},
-                    child: Text(
-                      'Exit',
-                      style: AppText.regular.copyWith(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Exit",
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Icon(Icons.exit_to_app, color: AppColors.white),
+                      ],
                     ),
                   ),
                 ),
