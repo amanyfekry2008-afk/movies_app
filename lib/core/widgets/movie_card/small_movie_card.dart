@@ -3,24 +3,40 @@ import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_rating.dart';
 
 class SmallMovieCard extends StatelessWidget {
+
   final String image;
+
   final String rating;
 
-  const SmallMovieCard({super.key, required this.image, required this.rating});
+  const SmallMovieCard({
+    super.key,
+    required this.image,
+    required this.rating,
+  });
 
   @override
   Widget build(BuildContext context) {
+
+    final bool isNetworkImage =
+    image.startsWith('http');
+
     return Stack(
       children: [
+
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius:
+            BorderRadius.circular(20),
 
             color: AppColors.black,
 
             boxShadow: [
+
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.3),
+                color:
+                Colors.black.withValues(
+                  alpha: 0.3,
+                ),
 
                 blurRadius: 10,
 
@@ -30,11 +46,22 @@ class SmallMovieCard extends StatelessWidget {
           ),
 
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius:
+            BorderRadius.circular(16),
 
             clipBehavior: Clip.antiAlias,
 
-            child: Image.network(
+            child:
+            isNetworkImage
+
+                ? Image.network(
+              image,
+              width: 146,
+              height: 220,
+              fit: BoxFit.cover,
+            )
+
+                : Image.asset(
               image,
               width: 146,
               height: 220,
@@ -47,7 +74,10 @@ class SmallMovieCard extends StatelessWidget {
           top: 8,
           left: 8,
 
-          child: MovieRating(text: rating, icon: Icons.star),
+          child: MovieRating(
+            text: rating,
+            icon: Icons.star,
+          ),
         ),
       ],
     );

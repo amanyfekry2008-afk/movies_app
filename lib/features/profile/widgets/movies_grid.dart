@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/widgets/movie_card/small_movie_card.dart';
+import 'package:movies_app/features/movie_details/movie_model.dart';
 
 class MoviesGrid extends StatelessWidget {
-  final List<String> movies;
+
+  final List<MovieModel> movies;
 
   const MoviesGrid({
     super.key,
@@ -11,10 +13,28 @@ class MoviesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
 
-      physics: const BouncingScrollPhysics(),
+    if (movies.isEmpty) {
+      return const Center(
+        child: Text(
+          "No Movies Yet",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+      );
+    }
+
+    return GridView.builder(
+      padding: const EdgeInsets.fromLTRB(
+        16,
+        0,
+        16,
+        100,
+      ),
+
+      physics:
+      const BouncingScrollPhysics(),
 
       itemCount: movies.length,
 
@@ -27,9 +47,13 @@ class MoviesGrid extends StatelessWidget {
       ),
 
       itemBuilder: (context, index) {
+
+        final movie = movies[index];
+
         return SmallMovieCard(
-          image: movies[index],
-          rating: '7.7',
+          image: movie.image,
+          rating:
+          movie.rating.toStringAsFixed(1),
         );
       },
     );
