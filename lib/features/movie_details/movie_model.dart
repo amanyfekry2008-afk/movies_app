@@ -1,8 +1,13 @@
 class MovieModel {
+
   final int id;
+
   final String title;
+
   final int year;
+
   final double rating;
+
   final String image;
 
   final String summary;
@@ -25,29 +30,46 @@ class MovieModel {
     required this.genres,
   });
 
-  factory MovieModel.fromJson(Map<String, dynamic> json) {
+  factory MovieModel.fromJson(
+      Map<String, dynamic> json,
+      ) {
+
     return MovieModel(
+
       id: json['id'] ?? 0,
 
       title: json['title'] ?? '',
 
       year: json['year'] ?? 0,
 
-      rating: (json['rating'] ?? 0).toDouble(),
+      rating:
+      (json['rating'] ?? 0).toDouble(),
 
-      image: json['medium_cover_image'] ?? '',
+      image:
+      json['medium_cover_image'] ?? '',
 
-      summary: json['description_full'] ?? '',
+      summary:
+      json['description_full'] ?? '',
 
-      runtime: json['runtime'] ?? 0,
+      runtime:
+      json['runtime'] ?? 0,
 
       screenshots: [
-        json['large_screenshot_image1'] ?? '',
-        json['large_screenshot_image2'] ?? '',
-        json['large_screenshot_image3'] ?? '',
+
+        json['large_screenshot_image1']
+            ?? '',
+
+        json['large_screenshot_image2']
+            ?? '',
+
+        json['large_screenshot_image3']
+            ?? '',
       ],
 
-      genres: List<String>.from(json['genres'] ?? []),
+      genres:
+      List<String>.from(
+        json['genres'] ?? [],
+      ),
     );
   }
 }

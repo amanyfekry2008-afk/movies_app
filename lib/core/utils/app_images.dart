@@ -18,4 +18,8 @@ abstract class AppImages {
   static const String discoverMore = "assets/images/discover_more.png";
   static const String rateReviewLearn = "assets/images/rate_review_learn.png";
   static const String startWatchingNow = "assets/images/start_watching_now.png";
+  static const String actor1 = "assets/images/actor1.png";
+  static const String actor2 = "assets/images/actor2.png";
+  static const String actor3 = "assets/images/actor3.png";
+  static const String actor4 = "assets/images/actor4.png";
 }

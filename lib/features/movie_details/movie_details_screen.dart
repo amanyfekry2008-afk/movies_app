@@ -1,26 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
+import 'package:movies_app/core/utils/app_images.dart';
 import 'package:movies_app/core/utils/app_text.dart';
-import 'package:movies_app/core/widgets/cast_card/cast_card.dart';
-import 'package:movies_app/core/widgets/cast_card/cast_model.dart';
 import 'package:movies_app/core/widgets/custom_button.dart';
-import 'package:movies_app/core/widgets/movie_card/movie_card.dart';
 import 'package:movies_app/core/widgets/movie_card/movie_rating.dart';
-import 'package:movies_app/features/home/widgets/horizontal_movies_list.dart';
 import 'package:movies_app/features/movie_details/cubit/movie_details_cubit.dart';
 import 'package:movies_app/features/movie_details/cubit/movie_details_state.dart';
 import 'package:movies_app/features/movie_details/movie_model.dart';
+import 'package:movies_app/features/movie_details/widgets/cast_section.dart';
+import 'package:movies_app/features/movie_details/widgets/genres_section.dart';
+import 'package:movies_app/features/movie_details/widgets/screenshots_section.dart';
+import 'package:movies_app/features/movie_details/widgets/similar_movies_section.dart';
+import 'package:movies_app/features/movie_details/widgets/summary_section.dart';
+import 'package:movies_app/features/profile/cubit/profile_cubit.dart';
 
-class MovieDetailsScreen extends StatelessWidget {
+class MovieDetailsScreen extends StatefulWidget {
   final MovieModel movie;
 
   const MovieDetailsScreen({super.key, required this.movie});
 
   @override
+  State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
+}
+
+class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+  bool isAddedToHistory = false;
+
+  @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> castList = [
+      {
+        "name": "Hayley Atwell",
+        "character": "Captain Carter",
+        "image": AppImages.actor1,
+      },
+
+      {
+        "name": "Elizabeth Olsen",
+        "character": "Wanda Maximoff / The Scarlet Witch",
+        "image": AppImages.actor2,
+      },
+
+      {
+        "name": "Rachel McAdams",
+        "character": "Dr. Christine Palmer",
+        "image": AppImages.actor3,
+      },
+
+      {
+        "name": "Charlize Theron",
+        "character": "Clea",
+        "image": AppImages.actor4,
+      },
+    ];
+
     return BlocProvider(
-      create: (context) => MovieDetailsCubit()..getMovieDetails(movie.id),
+      create: (context) =>
+          MovieDetailsCubit()..getMovieDetails(widget.movie.id),
 
       child: Scaffold(
         backgroundColor: AppColors.black,
@@ -38,6 +75,14 @@ class MovieDetailsScreen extends StatelessWidget {
             }
 
             if (state is MovieDetailsSuccess) {
+              if (!isAddedToHistory) {
+                isAddedToHistory = true;
+
+                Future.microtask(() {
+                  context.read<ProfileCubit>().addToHistory(state.movie);
+                });
+              }
+
               return SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
@@ -56,11 +101,17 @@ class MovieDetailsScreen extends StatelessWidget {
                           ),
 
                           Positioned(
-                            top: 16,
+                            top: 20,
                             left: 16,
 
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
+                            child: Container(
+                              width: 45,
+                              height: 45,
+
+                              decoration: BoxDecoration(
+                                color: AppColors.black.withValues(alpha: 0.4),
+                                shape: BoxShape.circle,
+                              ),
 
                               child: IconButton(
                                 onPressed: () {
@@ -68,36 +119,52 @@ class MovieDetailsScreen extends StatelessWidget {
                                 },
 
                                 icon: const Icon(
-                                  Icons.arrow_back_ios,
+                                  Icons.arrow_back_ios_new,
                                   color: AppColors.white,
-                                  size: 25,
+                                  size: 20,
                                 ),
                               ),
                             ),
                           ),
 
                           Positioned(
-                            top: 16,
+                            top: 20,
                             right: 16,
 
-                            child: CircleAvatar(
-                              backgroundColor: Colors.transparent,
+                            child: Container(
+                              width: 45,
+                              height: 45,
+
+                              decoration: BoxDecoration(
+                                color: AppColors.black.withValues(alpha: 0.4),
+                                shape: BoxShape.circle,
+                              ),
 
                               child: IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await context
+                                      .read<ProfileCubit>()
+                                      .addToWishlist(state.movie);
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Added To Wishlist'),
+                                    ),
+                                  );
+                                },
 
                                 icon: const Icon(
-                                  Icons.bookmark,
+                                  Icons.bookmark_border,
                                   color: AppColors.white,
-                                  size: 25,
+                                  size: 22,
                                 ),
                               ),
                             ),
                           ),
 
                           Container(
-                            width: 80,
-                            height: 80,
+                            width: 82,
+                            height: 82,
 
                             decoration: const BoxDecoration(
                               color: AppColors.yellow,
@@ -105,16 +172,19 @@ class MovieDetailsScreen extends StatelessWidget {
                             ),
 
                             child: const Icon(
-                              Icons.play_arrow,
+                              Icons.play_arrow_rounded,
                               color: AppColors.white,
-                              size: 45,
+                              size: 50,
                             ),
                           ),
                         ],
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 22,
+                        ),
 
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +196,7 @@ class MovieDetailsScreen extends StatelessWidget {
 
                                 textAlign: TextAlign.center,
 
-                                style: AppText.title.copyWith(fontSize: 24),
+                                style: AppText.title.copyWith(fontSize: 25),
                               ),
                             ),
 
@@ -138,17 +208,16 @@ class MovieDetailsScreen extends StatelessWidget {
 
                                 style: AppText.regular.copyWith(
                                   color: AppColors.white.withValues(alpha: 0.7),
-
-                                  fontSize: 16,
+                                  fontSize: 15,
                                 ),
                               ),
                             ),
 
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 24),
 
                             SizedBox(
                               width: double.infinity,
-                              height: 55,
+                              height: 56,
 
                               child: CustomButton(
                                 text: 'Watch Now',
@@ -156,200 +225,62 @@ class MovieDetailsScreen extends StatelessWidget {
                               ),
                             ),
 
-                            const SizedBox(height: 20),
+                            const SizedBox(height: 24),
 
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
                               children: [
-                                MovieRating(text: "15+", icon: Icons.favorite),
-
-                                MovieRating(
-                                  text: "${state.movie.runtime} min",
-
-                                  icon: Icons.timer,
+                                Expanded(
+                                  child: MovieRating(
+                                    text: "15+",
+                                    icon: Icons.favorite,
+                                  ),
                                 ),
 
-                                MovieRating(
-                                  text: state.movie.rating.toStringAsFixed(1),
+                                const SizedBox(width: 10),
 
-                                  icon: Icons.star,
+                                Expanded(
+                                  child: MovieRating(
+                                    text: "${state.movie.runtime} min",
+                                    icon: Icons.timer,
+                                  ),
+                                ),
+
+                                const SizedBox(width: 10),
+
+                                Expanded(
+                                  child: MovieRating(
+                                    text: state.movie.rating.toStringAsFixed(1),
+                                    icon: Icons.star,
+                                  ),
                                 ),
                               ],
                             ),
 
-                            const SizedBox(height: 24),
+                            const SizedBox(height: 34),
 
-                            Text(
-                              'Screenshots',
-
-                              style: AppText.title.copyWith(fontSize: 20),
+                            ScreenshotsSection(
+                              screenshots: state.movie.screenshots,
                             ),
 
-                            const SizedBox(height: 16),
+                            const SizedBox(height: 18),
 
-                            ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-
-                              itemCount: state.movie.screenshots.length,
-
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(height: 12);
-                              },
-
-                              itemBuilder: (context, index) {
-                                final image = state.movie.screenshots[index];
-
-                                if (image.isEmpty) {
-                                  return const SizedBox();
-                                }
-
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-
-                                  child: Image.network(
-                                    image,
-                                    width: 300,
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              },
+                            SimilarMoviesSection(
+                              suggestionsMovies: state.suggestionsMovies,
                             ),
-
-                            const SizedBox(height: 24),
-
-                            Text(
-                              'Similar',
-
-                              style: AppText.title.copyWith(fontSize: 20),
-                            ),
-
-                            const SizedBox(height: 16),
-
-                            GridView.builder(
-                              shrinkWrap: true,
-
-                              physics: const NeverScrollableScrollPhysics(),
-
-                              itemCount: state.suggestionsMovies.length,
-
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 12,
-                                    crossAxisSpacing: 12,
-                                    mainAxisExtent: 330,
-                                  ),
-
-                              itemBuilder: (context, index) {
-                                final movie = state.suggestionsMovies[index];
-
-                                return MovieCard(
-                                  image: movie.image,
-                                  rating: movie.rating.toString(),
-
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return MovieDetailsScreen(
-                                            movie: movie,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-
-                            const SizedBox(height: 24),
-
-                            Text(
-                              'Summary',
-
-                              style: AppText.title.copyWith(fontSize: 20),
-                            ),
-
-                            const SizedBox(height: 12),
-
-                            Text(
-                              state.movie.summary,
-
-                              style: AppText.regular.copyWith(
-                                fontSize: 16,
-                                height: 1.6,
-                              ),
-                            ),
-
-                            const SizedBox(height: 30),
-
-                            Text(
-                              'Genres',
-
-                              style: AppText.title.copyWith(fontSize: 20),
-                            ),
-
-                            const SizedBox(height: 12),
-
-                            Wrap(
-                              spacing: 12,
-                              runSpacing: 12,
-
-                              children: state.movie.genres.map((genre) {
-                                return Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 10,
-                                  ),
-
-                                  decoration: BoxDecoration(
-                                    color: AppColors.grey,
-
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-
-                                  child: Text(
-                                    genre,
-
-                                    style: AppText.regular.copyWith(
-                                      fontSize: 16,
-                                      color: AppColors.white,
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                            Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Cast',
-                        style: AppText.title.copyWith(fontSize: 20),
-                      ),
-                    ),
-                    // connect cast to api
-                    
-                    // ListView.separated(
-                    //   shrinkWrap: true,
-                    //   physics: const NeverScrollableScrollPhysics(),
-                    //   itemCount: state.movie.cast.length,
-                    //   separatorBuilder: (_, __) => const SizedBox(height: 10),
-                    //   itemBuilder: (context, index) {
-                    //     final actor = state.movie.cast[index];
-
-                    //     return CastCard(
-                    //       image: actor.image,
-                    //       name: actor.name,
-                    //       character: actor.character,
-                    //     );
-                    //   },
-                    // ),
 
                             const SizedBox(height: 32),
+
+                            SummarySection(summary: state.movie.summary),
+
+                            const SizedBox(height: 34),
+
+                            CastSection(castList: castList),
+
+                            const SizedBox(height: 32),
+
+                            GenresSection(genres: state.movie.genres),
+
+                            const SizedBox(height: 30),
                           ],
                         ),
                       ),
